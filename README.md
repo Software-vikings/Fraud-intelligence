@@ -49,7 +49,7 @@ python scripts/generate_data.py
 python scripts/run_evaluation.py
 python -m pytest -v
 
-uvicorn src.api.main:app --reload
+python -m uvicorn src.api.main:app --reload
 \`\`\`
 
 Open the analyst console at **http://127.0.0.1:8000/**.
@@ -64,25 +64,26 @@ source .venv/bin/activate
 python scripts/generate_data.py
 python scripts/run_evaluation.py
 python -m pytest -v
-uvicorn src.api.main:app --reload
+python -m uvicorn src.api.main:app --reload
 \`\`\`
 
 If port 8000 is occupied, use another port:
 
 \`\`\`bash
-uvicorn src.api.main:app --reload --port 8001
+python -m python -m uvicorn src.api.main:app --reload --port 8001
 \`\`\`
 
 Then open http://127.0.0.1:8001/.
 
 ## Verification status
 
-- **16 automated tests passed** in a clean Linux / Python 3.12 environment after the operations workflow was added.
-- The original 8-test suite also passed earlier in the user's macOS / Python 3.9 environment; the expanded 16-test suite still needs to be run on that Mac.
-- API smoke check: health endpoint returned HTTP 200 with both data files available; the analyst console root returned HTTP 200.
-- Browser JavaScript syntax check passed. A manual visual/accessibility review in a real desktop and mobile browser is still outstanding.
+- **16 automated tests passed** on the user's macOS / Python 3.9.6 environment.
+- **16 automated tests passed** in a clean Linux / Python 3.12 environment.
+- Data generation and evaluation completed on the user's Mac: 3,000 synthetic transactions, 95 true positives, 80 false positives, 2,824 true negatives and 1 false negative.
+- The API health and analyst-console routes returned HTTP 200 in a separate smoke test.
+- On the user's Mac, API startup was attempted with the global /opt/homebrew/bin/uvicorn (Python 3.11), which could not see the packages installed in the Python 3.9 virtual environment. Run python -m uvicorn from the activated .venv to bind the server to the correct interpreter.
+- Browser JavaScript syntax passed. A complete manual browser visual/accessibility review and analyst workflow walkthrough remain outstanding.
 
-One Starlette / httpx deprecation warning appeared in the remote test environment; it did not fail the test suite.
 
 ## API surface
 

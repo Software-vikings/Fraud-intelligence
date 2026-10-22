@@ -7,11 +7,11 @@
 
 ## Current assessment
 
-**Provisional employer-showcase readiness: 77 / 100 (77%).**
+**Provisional employer-showcase readiness: 78 / 100 (78%).**
 
-This percentage estimates completion of the work required to present a coherent, runnable, explainable portfolio demonstration to an employer. It does **not** mean the software is 77% production-ready, 77% accurate, or that 77% of fraud is detected.
+This percentage estimates completion of the work required to present a coherent, runnable, explainable portfolio demonstration to an employer. It does **not** mean the software is 78% production-ready, 78% accurate, or that 78% of fraud is detected.
 
-The score is provisional because the expanded suite and full analyst workflow still need to be exercised on the user's Mac, and the browser needs a manual visual/accessibility review. The original 8-test suite passed in the user's macOS / Python 3.9 environment. After the operations features were added, the expanded suite passed 16/16 in a clean Linux / Python 3.12 environment. The expanded suite still needs to be run on the user's Mac.
+The score is provisional because the API still needs a local venv-based server startup check, the full analyst workflow needs a manual walkthrough, and the browser needs a visual/accessibility review. The original 8-test suite passed in the user's macOS / Python 3.9 environment. After the operations features were added, the expanded suite passed 16/16 in a clean Linux / Python 3.12 environment. The expanded suite still needs to be run on the user's Mac.
 
 ## Weighted completion rubric
 
@@ -23,12 +23,12 @@ The score is provisional because the expanded suite and full analyst workflow st
 | Case management and audit history | 12 | 10 | SQLite case status, analyst assignment, required note and timestamped case events. Needs identity, permissions, concurrency and retention controls for production. |
 | Rule monitoring and governance | 10 | 8 | Rule hit summaries plus rationale-backed enable/disable and score changes. Needs controlled approvals, rollback and statistically sound rule-level outcome analysis. |
 | Dataset and evaluation quality | 10 | 6 | Reproducible 3,000-row synthetic dataset and confusion metrics. Labels overlap with rule indicators; build independent labels, time split and more realistic scenarios. |
-| Automated tests and QA | 10 | 8 | 16/16 tests passed in a clean Linux / Python 3.12 environment; the original 8 passed on the user's Mac / Python 3.9. Run all 16 on the Mac and add more edge/concurrency tests. |
+| Automated tests and QA | 10 | 9 | 16/16 tests passed on macOS / Python 3.9.6 and clean Linux / Python 3.12; data generation/evaluation also ran on Mac. Confirm API startup with the venv interpreter, add more edge/concurrency tests. |
 | README and reproducibility | 5 | 5 | README replaced with architecture, setup, endpoints, data interpretation and limitations. |
 | Honest limitations and privacy framing | 5 | 5 | Synthetic-only scope and non-production limitations are explicitly disclosed. |
 | Deployment and employer demo evidence | 5 | 0 | Local application only. No stable hosted demo, recording or reviewed screenshot pack yet. |
 | Interview case study / walkthrough | 3 | 0 | A complete alert-to-investigation-to-rule-improvement story still needs to be rehearsed and documented. |
-| **Total** | **100** | **77** | |
+| **Total** | **100** | **78** | |
 
 ## What is already implemented
 
@@ -73,4 +73,4 @@ The score is provisional because the expanded suite and full analyst workflow st
 
 ## Update policy
 
-Recalculate the score only when evidence changes. A code file being committed is not equivalent to being tested, visually inspected or demonstrated end-to-end. Credit is awarded for implementation plus appropriate verification. The current 77% is therefore a provisional evidence-based score; the QA and visual-review credits should be revisited after local execution.
+Recalculate the score only when evidence changes. A code file being committed is not equivalent to being tested, visually inspected or demonstrated end-to-end. Credit is awarded for implementation plus appropriate verification. The current 78% is therefore a provisional evidence-based score; the QA and visual-review credits should be revisited after local execution.
