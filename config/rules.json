@@ -1,0 +1,52 @@
+{
+  "rules": [
+    {
+      "id": "R001",
+      "name": "Unusually high amount",
+      "enabled": true,
+      "severity": "high",
+      "score": 35,
+      "threshold_multiplier": 8.0
+    },
+    {
+      "id": "R002",
+      "name": "High card transaction velocity",
+      "enabled": true,
+      "severity": "high",
+      "score": 30,
+      "max_transactions": 4,
+      "window_minutes": 10
+    },
+    {
+      "id": "R003",
+      "name": "Country differs from home country",
+      "enabled": true,
+      "severity": "medium",
+      "score": 20
+    },
+    {
+      "id": "R004",
+      "name": "Repeated failed attempts",
+      "enabled": true,
+      "severity": "medium",
+      "score": 20,
+      "min_failed_attempts": 3
+    },
+    {
+      "id": "R005",
+      "name": "High-risk merchant category",
+      "enabled": true,
+      "severity": "medium",
+      "score": 15,
+      "categories": [
+        "crypto",
+        "cash_equivalent",
+        "gambling"
+      ]
+    }
+  ],
+  "decision_thresholds": {
+    "review": 25,
+    "decline": 60
+  }
+}
