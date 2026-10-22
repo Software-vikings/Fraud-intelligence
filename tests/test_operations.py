@@ -89,3 +89,33 @@ def test_case_action_rejects_short_investigation_note():
         json={"status": "IN_REVIEW", "assigned_to": "QA Analyst", "note": "bad"},
     )
     assert response.status_code == 422
+
+
+def test_rule_change_records_rationale_and_version(tmp_path, monkeypatch):
+    import json
+    from src.api.main import registry
+
+    config_path = tmp_path / "rules.json"
+    history_path = tmp_path / "history.json"
+    config_path.write_text(json.dumps(registry.get()))
+    history_path.write_text("[]")
+    monkeypatch.setattr(registry, "config_path", config_path)
+    monkeypatch.setattr(registry, "history_path", history_path)
+
+    response = client.post(
+        "/api/rules/R001",
+        json={
+            "enabled": False,
+            "score": 30,
+            "rationale": "QA test: temporarily disable while reviewing alert quality.",
+            "changed_by": "QA Analyst",
+        },
+    )
+
+    assert response.status_code == 200
+    assert response.json()["updated_rule"]["enabled"] is False
+    assert response.json()["updated_rule"]["score"] == 30
+    assert response.json()["updated_rule"]["version"] == 2
+    history = json.loads(history_path.read_text())
+    assert len(history) == 1
+    assert "reviewing alert quality" in history[0]["rationale"]
