@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import timedelta
 import numpy as np
 import pandas as pd
 
@@ -23,7 +24,7 @@ def main(n=3000, seed=42):
             country = rng.choice([c for c in countries if c != home])
             category = rng.choice(["electronics","crypto","cash_equivalent","gambling"])
             failed = int(rng.integers(2,6))
-        ts = base_time + pd.Timedelta(minutes=int(rng.integers(0,60*24*60)))
+        ts = base_time + timedelta(minutes=int(rng.integers(0, 60 * 24 * 60)))
         rows.append({
             "transaction_id":f"TX{i+1:06d}","customer_id":customer,"card_id":f"CARD{int(customer[1:]):04d}",
             "amount":round(amount,2),"currency":"EUR","merchant_category":category,

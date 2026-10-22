@@ -57,3 +57,35 @@ def test_case_detail_has_parsed_rule_explanations():
     payload = response.json()
     assert isinstance(payload["triggered_rules"], list)
     assert isinstance(payload["history"], list)
+
+
+def test_case_action_is_persisted_with_audit_history():
+    queue = client.get("/api/alerts").json()["items"]
+    if not queue:
+        pytest.skip("The generated sample produced no alerts.")
+    transaction_id = queue[0]["transaction_id"]
+    response = client.post(
+        "/api/cases/" + transaction_id,
+        json={
+            "status": "IN_REVIEW",
+            "assigned_to": "QA Analyst",
+            "note": "Reviewed transaction context and requested supporting evidence.",
+        },
+    )
+    assert response.status_code == 200
+    assert response.json()["case"]["status"] == "IN_REVIEW"
+    assert response.json()["case"]["assigned_to"] == "QA Analyst"
+    assert len(response.json()["history"]) >= 1
+    detail = client.get("/api/cases/" + transaction_id).json()
+    assert detail["history"][0]["note"].startswith("Reviewed transaction context")
+
+
+def test_case_action_rejects_short_investigation_note():
+    queue = client.get("/api/alerts").json()["items"]
+    if not queue:
+        pytest.skip("The generated sample produced no alerts.")
+    response = client.post(
+        "/api/cases/" + queue[0]["transaction_id"],
+        json={"status": "IN_REVIEW", "assigned_to": "QA Analyst", "note": "bad"},
+    )
+    assert response.status_code == 422
