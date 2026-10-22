@@ -75,6 +75,15 @@ uvicorn src.api.main:app --reload --port 8001
 
 Then open http://127.0.0.1:8001/.
 
+## Verification status
+
+- **16 automated tests passed** in a clean Linux / Python 3.12 environment after the operations workflow was added.
+- The original 8-test suite also passed earlier in the user's macOS / Python 3.9 environment; the expanded 16-test suite still needs to be run on that Mac.
+- API smoke check: health endpoint returned HTTP 200 with both data files available; the analyst console root returned HTTP 200.
+- Browser JavaScript syntax check passed. A manual visual/accessibility review in a real desktop and mobile browser is still outstanding.
+
+One Starlette / httpx deprecation warning appeared in the remote test environment; it did not fail the test suite.
+
 ## API surface
 
 | Endpoint | Purpose |
