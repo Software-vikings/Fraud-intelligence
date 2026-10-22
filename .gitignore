@@ -5,3 +5,5 @@ venv/
 *.py[cod]
 .DS_Store
 data/processed/*.csv
+data/processed/*.sqlite
+data/processed/*.db
