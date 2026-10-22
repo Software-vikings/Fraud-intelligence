@@ -1,0 +1,30 @@
+name: Extract project archive
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/extract-archive.yml'
+permissions:
+  contents: write
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Extract project files
+        run: |
+          mkdir -p /tmp/fraudops
+          unzip -o FraudOps_Intelligence_Project.zip -d /tmp/fraudops
+          cp -a /tmp/fraudops/fraudops-intelligence/. .
+          rm -rf /tmp/fraudops
+      - name: Commit extracted files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "Extract FraudOps Intelligence project files"
+            git push
+          fi
