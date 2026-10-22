@@ -18,6 +18,7 @@ jobs:
           mkdir -p /tmp/fraudops
           unzip -o FraudOps_Intelligence_Project.zip -d /tmp/fraudops
           cp -a /tmp/fraudops/fraudops-intelligence/. .
+          rm -f .github/workflows/ci.yml
           rm -rf /tmp/fraudops
       - name: Commit extracted files
         run: |
