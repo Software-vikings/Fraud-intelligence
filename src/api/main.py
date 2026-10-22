@@ -196,6 +196,7 @@ def get_case(transaction_id: str):
     match = next((row for row in _alert_rows() if str(row.get("transaction_id")) == transaction_id), None)
     if not match:
         raise HTTPException(404, "Alert not found.")
+    match["triggered_rules"] = _parse_hits(match.get("triggered_rules"))
     match["history"] = case_store.history(transaction_id)
     return match
 
