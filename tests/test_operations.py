@@ -1,8 +1,19 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from src.api.main import app
 
 client = TestClient(app)
+
+
+@pytest.fixture(scope="session", autouse=True)
+def generate_demo_dataset():
+    """Make endpoint tests reproducible in a clean checkout."""
+    from scripts.generate_data import main as generate_data
+    from scripts.run_evaluation import main as run_evaluation
+
+    generate_data()
+    run_evaluation()
 
 
 def test_operations_console_is_served():
@@ -16,7 +27,7 @@ def test_dashboard_returns_operational_metrics():
     response = client.get("/api/dashboard")
     assert response.status_code == 200
     payload = response.json()
-    assert payload["metrics"]["transaction_count"] >= 1
+    assert payload["metrics"]["transaction_count"] == 3000
     assert payload["alert_count"] >= 0
     assert "data_notice" in payload
 
@@ -40,7 +51,7 @@ def test_rule_performance_returns_configured_rules():
 def test_case_detail_has_parsed_rule_explanations():
     queue = client.get("/api/alerts").json()["items"]
     if not queue:
-        return
+        pytest.skip("The generated sample produced no alerts.")
     response = client.get("/api/cases/" + queue[0]["transaction_id"])
     assert response.status_code == 200
     payload = response.json()
