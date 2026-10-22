@@ -9,7 +9,7 @@
 
 **Provisional employer-showcase readiness: 77 / 100 (77%).**
 
-This percentage estimates completion of the work required to present a coherent, runnable, explainable portfolio demonstration to an employer. It does **not** mean the software is 76% production-ready, 76% accurate, or that 76% of fraud is detected.
+This percentage estimates completion of the work required to present a coherent, runnable, explainable portfolio demonstration to an employer. It does **not** mean the software is 77% production-ready, 77% accurate, or that 77% of fraud is detected.
 
 The score is provisional because the expanded suite and full analyst workflow still need to be exercised on the user's Mac, and the browser needs a manual visual/accessibility review. The original 8-test suite passed in the user's macOS / Python 3.9 environment. After the operations features were added, the expanded suite passed 16/16 in a clean Linux / Python 3.12 environment. The expanded suite still needs to be run on the user's Mac.
 
