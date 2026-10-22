@@ -3,6 +3,7 @@ import json
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
+from typing import Optional
 from src.engine.rules import evaluate_transaction
 from src.engine.metrics import calculate_metrics
 from src.governance.registry import RuleRegistry
@@ -26,7 +27,7 @@ class Transaction(BaseModel):
     is_card_present: bool = False
     failed_attempts_24h: int = Field(default=0, ge=0)
     customer_avg_amount_30d: float = Field(default=50, ge=0)
-    label_is_fraud: int | None = None
+    label_is_fraud: Optional[int] = None
 
 @app.get("/health")
 def health():
